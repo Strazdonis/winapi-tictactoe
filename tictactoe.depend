@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1637837898 source:d:\programming\uni\winapi\tictactoe\main.cpp
+	<tchar.h>
+	<windows.h>
+	<iostream>
+	<iostream>
+	<fstream>
+
