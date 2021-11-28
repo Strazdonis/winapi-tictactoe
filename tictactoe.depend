@@ -1,8 +1,13 @@
 # depslib dependency file v1.0
-1637837898 source:d:\programming\uni\winapi\tictactoe\main.cpp
+1638130315 source:d:\programming\uni\winapi\tictactoe\main.cpp
 	<tchar.h>
 	<windows.h>
-	<iostream>
+	"head.h"
+
+1638130474 d:\programming\uni\winapi\tictactoe\head.h
 	<iostream>
 	<fstream>
+	<gdiplus.h>
+
+1638130321 source:d:\programming\uni\winapi\tictactoe\resources.rc
 

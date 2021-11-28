@@ -13,8 +13,8 @@ using namespace std;
 
 TODO:
 * User interface
-Resource scripts
-Graphical elements (like images)
+* Resource scripts
+* Graphical elements (like images)
 * Dynamic Link Libraries.
 * Files. For example - to save and restore program's status or keep some logs like high-scores to show scores.
 
@@ -26,9 +26,6 @@ LRESULT CALLBACK WindowProcedure (HWND, UINT, WPARAM, LPARAM);
 
 /*  Make the class name into a global variable  */
 TCHAR szClassName[ ] = _T("CodeBlocksWindowsApp");
-
-const int windowWidth = 600;
-const int lineLen = windowWidth / 3;
 
 int WINAPI WinMain (HINSTANCE hThisInstance,
                      HINSTANCE hPrevInstance,
@@ -68,8 +65,8 @@ int WINAPI WinMain (HINSTANCE hThisInstance,
            WS_OVERLAPPEDWINDOW, /* default window */
            CW_USEDEFAULT,       /* Windows decides the position */
            CW_USEDEFAULT,       /* where the window ends up on the screen */
-           windowWidth,                 /* The programs width */
-           windowWidth,                 /* and height in pixels */
+           windowWidth + 14,                 /* The programs width */
+           windowWidth + 28,                 /* and height in pixels */
            HWND_DESKTOP,        /* The window is a child-window to desktop */
            NULL,                /* No menu */
            hThisInstance,       /* Program Instance handler */
@@ -114,9 +111,11 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
             for (int i = 0; i < 3; ++i) {
                 for (int j = 0; j < 3; ++j) {
                     if (GameBoard[i][j] == X) {
-                        DrawX(hdc, i, j, lineLen);
+                       // DrawX(hdc, i, j, lineLen);
+                       DrawImage(hdc, i, j, XIcon);
                     } else if (GameBoard[i][j] == O) {
-                        DrawO(hdc, i, j, lineLen);
+                        //DrawO(hdc, i, j, lineLen);
+                        DrawImage(hdc, i, j, OIcon);
                     }
                 }
             }
@@ -127,7 +126,7 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
                     SaveToFile("Player 1 (X) Won");
                     ::MessageBox(hwnd, _T("Player 1 Won"), _T("New Game?"), MB_OK);
                 } else {
-                    SaveToFile("Player 2 (Y) Won");
+                    SaveToFile("Player 2 (O) Won");
                     ::MessageBox(hwnd, _T("Player 2 Won"), _T("New Game?"), MB_OK);
                 }
                 ResetGame();

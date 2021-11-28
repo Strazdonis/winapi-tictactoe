@@ -39,6 +39,9 @@
 		</Linker>
 		<Unit filename="head.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="resources.rc">
+			<Option compilerVar="WINDRES" />
+		</Unit>
 		<Extensions />
 	</Project>
 </CodeBlocks_project_file>

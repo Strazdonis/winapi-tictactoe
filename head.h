@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <gdiplus.h>
 #ifndef HEAD_H_INCLUDED
 #define HEAD_H_INCLUDED
 using namespace std;
@@ -9,6 +10,11 @@ Tiles GameBoard[3][3] =
 	{{Blank, Blank, Blank},
 	{Blank, Blank, Blank},
 	{Blank, Blank, Blank}};
+const int windowWidth = 600;
+const int lineLen = windowWidth / 3;
+
+HICON XIcon = (HICON) LoadImage(GetModuleHandle(NULL), TEXT("X_ICON"), IMAGE_ICON, 256, 256, 0);
+HICON OIcon = (HICON) LoadImage(GetModuleHandle(NULL), TEXT("O_ICON"), IMAGE_ICON, 256, 256, 0);
 
 void DrawBoard(HDC hdc, int windowWidth, int lineLen)
 {
@@ -35,51 +41,11 @@ void DrawBoard(HDC hdc, int windowWidth, int lineLen)
 	DeleteObject(hLinePen);
 }
 
-void DrawX(HDC hdc, int X, int Y, int lineLen)
+void DrawImage(HDC hdc, int X, int Y, HICON hIcon)
 {
-	HPEN hPenOld;
-	HPEN hLinePen;
-	COLORREF lineColor;
-	lineColor = RGB(255, 0, 0);
-	const int penWidth = 10;
-	hLinePen = CreatePen(PS_SOLID, penWidth, lineColor);
-	hPenOld = (HPEN)SelectObject(hdc, hLinePen);
-
-	// Get bounds
-	const int lowX	= X*lineLen + 2*penWidth;
-	const int highX	= (X + 1)*lineLen - 2*penWidth;
-	const int lowY	= Y*lineLen + 2*penWidth;
-	const int highY	= (Y + 1)*lineLen - 2*penWidth;
-
-	MoveToEx(hdc, lowX, lowY, NULL);
-	LineTo(hdc, highX, highY);
-	MoveToEx(hdc, lowX, highY, NULL);
-	LineTo(hdc, highX, lowY);
-
-	SelectObject(hdc, hPenOld);
-	DeleteObject(hLinePen);
-}
-
-
-void DrawO(HDC hdc, int X, int Y, int lineLen) {
-	HPEN hPenOld;
-	HPEN hLinePen;
-	COLORREF lineColor;
-	lineColor = RGB(0, 0, 255);
-	const int penWidth = 10;
-	hLinePen = CreatePen(PS_SOLID, penWidth, lineColor);
-	hPenOld = (HPEN)SelectObject(hdc, hLinePen);
-
-	// Get bounds
-	const int lowX	= X*lineLen + 2*penWidth;
-	const int highX	= (X + 1)*lineLen - 2*penWidth;
-	const int lowY	= Y*lineLen + 2*penWidth;
-	const int highY	= (Y + 1)*lineLen - 2*penWidth;
-
-	Arc(hdc, lowX, lowY, highX, highY, 0, 0, 0, 0);
-
-	SelectObject(hdc, hPenOld);
-	DeleteObject(hLinePen);
+    int left = windowWidth / 3 * X + 10;
+    int top = windowWidth / 3 * Y + 10;
+    DrawIconEx(hdc, left, top, hIcon, 180, 180, 0, NULL, DI_NORMAL);
 }
 
 bool ValidateMove(LPARAM lParam, Tiles mover, int lineLen) {
